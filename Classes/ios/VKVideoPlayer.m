@@ -224,6 +224,10 @@ typedef enum {
 }
 
 - (void)reachabilityChanged:(NSNotification*)notification {
+  if ([self.track.streamURL.scheme isEqualToString:@"file"]) {
+    return;
+  }
+  
   Reachability* curReachability = notification.object;
   if (curReachability == VKSharedUtility.wifiReach) {
     DDLogVerbose(@"Reachability Changed: %@", [VKSharedUtility.wifiReach isReachableViaWiFi] ? @"Wifi Detected." : @"Cellular Detected.");
